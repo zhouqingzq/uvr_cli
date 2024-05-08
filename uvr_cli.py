@@ -6602,7 +6602,10 @@ class MainWindow(TkinterDnD.Tk if is_dnd_compatible else tk.Tk):
                     self.command_Text.write(base_text + f'{LOADING_MODEL_TEXT} {model_name_text}...')
 
                     set_progress_bar = lambda step, inference_iterations=0:self.process_update_progress(total_files=inputPath_total_len, step=(step + (inference_iterations)))
-                    write_to_console = lambda progress_text, base_text=base_text:self.command_Text.write(base_text + progress_text)
+                    #write_to_console = lambda progress_text, base_text=base_text:self.command_Text.write(base_text + progress_text)
+
+                    write_to_console = lambda progress_text, base_text="":self.command_Text.write(base_text + progress_text)
+
 
                     audio_file_base = f"{file_num}_{os.path.splitext(os.path.basename(audio_file))[0]}"
                     audio_file_base = audio_file_base if not self.is_testing_audio_var.get() or is_ensemble else f"{round(time.time())}_{audio_file_base}"
@@ -7252,7 +7255,7 @@ if __name__ == "__main__":
     root.is_root_defined_var.set(True)
     root.is_check_splash = True
 
-    root.is_gpu_available = True
+    root.is_gpu_conversion_var.set(True)
     root.wav_type_set = 'PCM_16'
 
 #    root.is_primary_stem_only_var.set(False)
@@ -7270,12 +7273,10 @@ if __name__ == "__main__":
     # 第一个参数是脚本文件名，后面的参数是传递给脚本的命令行参数
     # 例如：python script.py arg1 arg2 arg3
     # 则 sys.argv[0] 是 'script.py'，sys.argv[1] 是 'arg1'，依此类推
-    song_name = "6623636ab5255.m4a"
+    song_name = "2737712.m4a"
     if len(sys.argv) > 1:
         arg1 = sys.argv[1]
-        arg2 = sys.argv[2]  # 假设有第二个参数
         print("第一个参数:", arg1)
-        print("第二个参数:", arg2)
         song_name = sys.argv[1]
     else:
         print("未提供命令行参数")
